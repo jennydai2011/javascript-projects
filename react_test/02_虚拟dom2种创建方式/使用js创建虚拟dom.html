@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test">      
+    </div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+   
+    <!--不 work-->
+   <!-- <script type="text/javascript" src="../react.development.js"></script>
+    <script type="text/javascript" src="../react-jsx-dev-runtime.development.js"></script>
+    <script type="text/javascript" src="../react-dom.development.js"></script>    
+    <script type="text/javascript" src="../babel.min.js"></script> -->
+
+    <!-- 此处一定要写 text/babel-->
+    <script type="text/javascript">
+        //1。创建虚拟dom
+        const VDOM = React.createElement('h1', {id: 'title'}, 'Hello React from non-jsx') /*此处一定不要写引号，因为不是字符串*/
+        //2. 渲染虚拟DOM 到页面
+        ReactDOM.render(VDOM, document.getElementById('test'))
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    /*
+        总结:
+        1. 类中的构造方法不是必须写的，只是要对实例进行初始化操作时，如添加指定属性时，才需要些
+        2. 如果A继承B， 且A类有构造器，B类的构造器必须调用A的构造器(super)
+        3. 类的所有方法，都放在原型对象上
+    */
+    //-----复习类
+     class Person{
+        //构造器方法
+        constructor(name, age){
+            //构造器的this 是类的实例对象
+            this.name = name
+            this.age = age
+        }
+
+        //一般方法, 非constructor 方法
+        speak(){
+            //speak方法放在了哪里，放在了Person 的类的原型对象上， 给所有实例对象使用
+            //通过Person实例调用speak, speak中的this就是Person的当前实例
+            console.log(`我叫${this.age}, 我的年龄是${this.age}`)
+        }
+     }
+
+    //  const p1 = new Person('tom', 18)
+    //  console.log(p1)
+    //  p1.speak()
+
+    //  const p2 = new Person('jerry', 20)
+    //  console.log(p2)
+    //  p2.speak()
+
+     /*call更改this 对象*/
+    //  p1.speak.call({a:1, b:2})
+
+    //------复习继承
+    class Student extends Person {
+        constructor(name, age, grade) {
+            super(name, age)
+            this.grade = grade
+        }
+
+        speak(){
+            //没有override时，调用 原型链上的Person 类的原型的方法
+            //有override时，调用Student原型对象的方法
+            //this是Student的实例
+            console.log(`我叫${this.age}, 我的年龄是${this.age}, 我的年纪${this.grade}`) 
+        }
+        study(){
+            //study方法放在类的原型对象上，供实例使用
+            //通过Student实例调用study时，this是Student的实例
+            console.log('学习')
+        }
+    }
+    const s1 = new Student('zhangsan', 15, '高一')
+    console.log(s1)
+    s1.speak()
+    s1.study()
+
+    class Car {
+        constructor(name, price){
+            this.name = name
+            this.price = this.price
+        }
+        //类中可以直接写赋值语句，不能带let
+        //
+        a=1 //会自动传给所有实例
+    }
+
+    console.log( new Car('bm', 111))
+    </script>
+</body>
+</html>

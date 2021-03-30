@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .title{
+            background-color: orange;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="test"></div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.1/babel.min.js"></script>
+    
+    <!--不 work-->
+   <!-- <script type="text/javascript" src="../react.development.js"></script>
+    <script type="text/javascript" src="../react-jsx-dev-runtime.development.js"></script>
+    <script type="text/javascript" src="../react-dom.development.js"></script>    
+    <script type="text/javascript" src="../babel.min.js"></script> -->
+
+    <!-- 此处一定要写 text/babel-->
+    <script type="text/babel">
+        const data = ['Angular', 'React', 'Vue']
+        const obj = {name1: 'Angular', name2: 'React', name3: 'Vue'}
+        /*虚拟dom不能直接解析 {obj}*/
+        /*虚拟dom不能直接解析 {for 循环不能写}*/
+
+        /*
+            一定注意区分: [JS 语句、代码] 与 【JS表达式]
+            1.表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方
+                 1） a
+                 2） a+b
+                 3)  demo(1)
+                 4) arr.map()
+                 5) function test(){}
+                 6) console.log
+            2. 语句、代码
+                1） if(){}
+                2) for(){}
+                3) switch(){case:***}
+        */
+        //1。创建虚拟dom        
+        const VDOM = (
+            <div>
+                <h1 >
+                    前端JS框架列表
+                </h1> 
+                <ul>
+                    {data.map( (item, index) => {
+                        return <li key={index}>{item}</li>
+                    })} 
+                </ul>
+            </div>
+            
+            
+        )/*此处一定不要写引号，因为不是字符串*/
+        //2. 渲染虚拟DOM 到页面
+        ReactDOM.render(VDOM, document.getElementById('test'))
+
+        /*
+                jsx语法规则：
+                1. 定义虚拟DOM时，不要加引号
+                2. 引入变量(js表达式，不能是js代码）时，加{}
+                3. 样式的类名不要用class,要用className
+                4. 内联样式，要用style={{key:value}}的格式
+                5. 虚拟DOM必须只有一个根标签
+                6. 标签必须闭合
+                7. element 必须是有效的HTML 标签
+                     1）不认识的如果小写开头，jsx自动转化为HTML中同名元素
+                     2） 如果大写开头，就认为是组件标签
+        */
+    </script>
+    
+</body>
+</html>
