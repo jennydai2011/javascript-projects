@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.0.0-beta.1/babel.min.js"></script>
+    
+    <!-- 此处一定要写 text/babel-->
+    <script type="text/babel">  
+    /*经典面试题:
+    1. react/vue中的key有什么作用？ （key的内部原理是什么？）
+    2. 为什么便利列表时，key最好不要用index?
+
+    1.虚拟DOM中的key的作用：
+        1）简单的说: key是DOM对象的标识，在更新显示时key起着极其重要的作用
+
+        2)详细的说，当状态的数据发生变化时，react 会根据新数据生成新的虚拟DOM
+                随后REACT进行新虚拟DOM 与 旧虚拟DOM 的比较， 比较规则如下:
+
+            a. 旧虚拟DOM中找到了与新虚拟DOM相同的KEY            
+            （1）若虚拟DOM 的内容没有变， 直接使用之前的真实DOM
+             (2) 若虚拟dom的内容变了， 则生成新的真实DOM
+            
+            b. 旧虚拟DOM中没有找到与新虚拟DOM相同的KEY
+                根据新虚拟DOM生成新的真实DOM， 随后渲染到页面
+    
+    2。 用index作为KEY可能会引发的问题：
+         1） 若对数据进行： 逆序添加，逆序删除等破坏顺序操作：
+                会产生没有必要的真实DOM的更新 ==>界面效果没有问题， 但效率低
+         
+         2） 如果接种还包含输入类的DOM：
+                会产生错误DOM 更新 ==》界面有问题
+         
+         3) 注意！如果不存在对数据的逆序添加，逆序删除等破坏顺序的操作，
+            仅仅用于渲染列表展示，使用index作为key是没有问题的
+
+    3. 开发中如何选择 key：
+         1） 最好使用每条数据的唯一标识,比如手机号，ID， 身份证号等等
+         2） 如果只是简单的展示数据，用index也可以
+
+    */
+
+    /*慢动作回放 ---使用index索引值作为key可能会有错乱问题，  用id作唯一标识可以避免
+        如果把新元素加在最后，不改变顺序，那么index可以用，但是不建议用
+    
+        数据：         
+            {id:1, name:'xiaozhang', age: 18},
+            {id:2, name:"xiaoli", age:19}
+        初始的虚拟DOM：
+            <li key=0> xiaozhang---18</li>
+            <li key=01 xiaoli---19</li>
+
+        
+        更新后的数据:
+            {id: 3, name: "xiaowang", age: 20}
+            {id:1, name:'xiaozhang', age: 18},
+            {id:2, name:"xiaoli", age:19}
+        更新后的DOM
+            <li key=0>xiaowang---20</li>
+            <li key=1>xiaozhang---18</li>
+            <li key=2>xiaoli---19</li>
+
+
+    */
+        class Person extends React.Component{
+            state = {
+                persons: [
+                    {id:1, name:'xiaozhang', age: 18},
+                    {id:2, name:"xiaoli", age:19}
+                ]
+            }
+
+            componentDidMount () {
+                setInterval(() => {
+                    this.setState({date: new Date()})
+                }, 1000);
+            }
+            add = () => {
+                const {persons} = this.state
+                const p = {id: persons.length+1, name: "xiaowang", age: 20}
+               
+                this.setState({persons: [p, ...persons]})
+            }
+            /*diffing算法比较到每个tag，最小单位是tag，
+            如果tag 还有子tag, 逐层比较，如果子层没有变化，则不替换*/
+            render(){
+                return(
+                    <div>
+                        <h2>display list</h2>
+                        <h3>display listm key = index</h3>
+                        <button onClick={this.add}>添加一个小王</button>
+                        <ul>
+                            {
+                                this.state.persons.map( (person, index) => {
+                                    return <li key={index}> {person.name} ---{person.age} <input type="text"/></li>
+                                })
+                            }
+                        </ul>
+                        <hr/>
+                        <hr/>
+                        <h3>display listm key = id</h3>
+                        <ul>
+                            {
+                                this.state.persons.map( (person) => {
+                                    return <li key={person.id}> {person.name} ---{person.age}<input type="text"/></li>
+                                })
+                            }
+                        </ul>
+                        </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Person />, document.getElementById("test"))
+    </script>
+</body>
+</html>
