@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #result{
+            width: 200px;
+            height: 100px;
+            border:solid 1px
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="result">鼠标悬停在div上时发送AJAX请求</div>
+    <script>
+        //获取元素        
+        const result = document.getElementById('result')
+        // result.addEventListener('keydown', ()=>{
+        //     console.log("test")
+        // })
+        //绑定事件
+        window.onkeydown= function(){
+            //1.创建对象
+            const xhr = new XMLHttpRequest();
+
+            //2. 初始化，设置请求方法
+            xhr.open('POST', 'http://127.0.0.1:8000/json-server')
+            //设置请求头
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+            xhr.setRequestHeader('name', 'test')
+            xhr.responseType = 'json'
+            //3. 发送
+            //xhr.send('a=100&b=200');
+            //xhr.send('a:100&b:300');
+            xhr.send('123456'); //can be any format
+
+            //4.事件绑定，处理服务器端返回结果
+            //onXXX
+            //readyState 是xhr对象的属性，表示状态 0 1 2 3 4
+            //change
+            xhr.onreadystatechange = function(){
+                //4 
+                if(xhr.readyState ==4){
+
+                    //判断响应状态码 200 404 403 401 500
+                    if(xhr.status>=200 && xhr.status <300 ){
+                        //处理结果 行 头 空行 体
+                        //1. 响应行
+                        console.log(xhr.status); //状态码
+                        console.log(xhr.statusText);//状态字符串
+                        console.log(xhr.getAllResponseHeaders()); //所有响应头
+                        console.log(xhr.response)
+
+                        //
+                        //result.innerHTML = xhr.response
+
+                        // let data =JSON.parse(xhr.response)
+                        // console.log(data)
+                        // result.innerHTML = data.name
+
+                        result.innerHTML = xhr.response.name
+                    }else{
+
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //await 10;//await is only valid in async function
+
+        async function main(){
+
+            let p = new Promise ( (resolve, reject) =>{
+                resolve("ok")
+            });
+            //1.右侧为promise的情况, await的值是promise成功时的返回值
+            let res = await p;
+            console.log(res);
+
+            //2.右侧是 其它类型数据， 不是promise的类型, await的值就是右侧的值
+            let res2 = await 20;
+            console.log(res2)
+
+            //3. 如果promise是失败状态，await必须在try、catch 中，
+            let p2 = new Promise ( (resolve, reject) =>{
+                reject("error")
+            });
+            try{
+                let res3= await p2;
+                console.log(res3)
+            }catch(e){
+                console.log(e)
+            }
+            
+            
+
+            
+        }
+        
+        main()
+    </script>
+</body>
+</html>
