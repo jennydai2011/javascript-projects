@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script  src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>axios</title>
+    <style>
+        #result{
+            width: 200px;
+            height: 100px;
+            border:solid 1px
+        }
+    </style>
+</head>
+<body>
+    <button>
+        点击发送GET请求
+    </button>
+    <button>
+        点击发送POST请求
+    </button>
+    <button>
+        点击发送通用请求
+    </button>
+    <div id="result"></div>
+    <script>
+        //获取button元素
+        const btn = document.getElementsByTagName('button')[0];
+        const btn2 = document.getElementsByTagName('button')[1];
+        const btn3 = document.getElementsByTagName('button')[2];
+        const result = document.getElementById('result')
+
+        btn.onclick = function(){
+            //GET
+            axios.get('http://127.0.0.1:8000/axios', {
+                params: {
+                    id:100,
+                    vip:7
+                },
+                headers: {
+                    name: 'test',
+                    age:20,
+                    'Access-Control-Allow-Headers':'*'
+                }
+            })
+            .then(function(response){
+                console.log(response)
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+            .then(function(){
+                console.log('always execute...')
+            })
+        }
+
+        btn2.onclick = function(){
+            //GET
+            axios.post('http://127.0.0.1:8000/axios', {
+                params: {
+                    id:100,
+                    vip:7
+                },
+                headers: {
+                    name: 'test',
+                    age:20,
+                    'Access-Control-Allow-Headers':'*'
+                },
+                data: {
+                    width: 100,
+                    height:200
+                }
+            })
+            .then(value => {
+                console.log(value)
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+            .then(function(){
+                console.log('always execute...')
+            })
+        }
+
+        
+    </script>
+</body>
+</html>

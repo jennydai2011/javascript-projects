@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" crossorigin="anonymous"  href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0-beta2/css/bootstrap.min.css"/>
+    <script  src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <ht class="page-header">基本使用</ht>
+        <button class="btn btn-primary">GET</button>
+        <button class="btn btn-warning">POST</button>
+        <button class="btn btn-success">PUT</button>
+        <button class="btn btn-danger">DELETE</button>
+    </div>
+    <script>
+        const btns = document.querySelectorAll('button');
+
+        //first button
+        btns[0].onclick = function(){
+            axios({
+                method: 'GET',
+                url: 'http://localhost:3000/posts/2'
+
+            }).then(response =>{
+                console.log(response)
+            })
+        }
+
+        //2nd button -- add a new post
+        btns[1].onclick = function(){
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/posts',
+                data:{
+                    title: "post3",
+                    author:"zhangsan"
+                }
+
+            }).then(response =>{
+                console.log(response)
+            })
+        }
+
+        //3rd button -- update post
+        btns[2].onclick = function(){
+            axios({
+                method: 'PUT',
+                url: 'http://localhost:3000/posts/3',
+                data:{
+                    title: "post3",
+                    author:"lisi"
+                }
+
+            }).then(response =>{
+                console.log(response)
+            })
+        }
+
+        //4th button -- DELETE post
+        btns[3].onclick = function(){
+            axios({
+                method: 'DELETE',
+                url: 'http://localhost:3000/posts/3'
+
+            }).then(response =>{
+                console.log(response)
+            })
+        }
+    </script>
+</body>
+</html>

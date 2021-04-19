@@ -31,3 +31,9 @@ Promise对象
   
 ## Promise 实例对象的值
 保存异步任务成功或者失败的结果，value, or reason
+
+## Promise 的工作流程
+new Promise -> 执行异步操作, 
+成功了，执行resolve->返回promise 对象， resolve状态, then 回调 onResolved() 方法
+失败了, 执行reject()-》 返回promise对象，rejected状态, then 回调onRejected() 方法
+-》继续新的promise对象

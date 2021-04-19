@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #result{
+            width: 200px;
+            height: 100px;
+            border:solid 1px
+        }
+    </style>
+</head>
+<body>
+    <button>
+        点击发送请求
+    </button>
+    
+    <div id="result"></div>
+    <script>
+        //获取button元素
+        const btn = document.getElementsByTagName('button')[0];
+        const result = document.getElementById('result')
+
+         //1.创建对象
+         let xhr = null;
+
+        //绑定事件
+        btn.onclick = function(){
+
+            xhr= new XMLHttpRequest();
+
+            //2. 初始化，设置请求方法
+            //超时设置
+            xhr.timeout = 20000;
+            //超时回调
+            xhr.ontimeout = function(){
+                alert("网络超时，请重试！")
+            }
+            xhr.open('GET', 'http://127.0.0.1:8000/longrunning?t='+new Date()) //clear IE cache
+
+
+            //异常回调
+            xhr.onerror = () =>{
+                alert("网络异常！")
+            }
+            //3. 发送
+            xhr.send();
+
+            //4.事件绑定，处理服务器端返回结果
+            //onXXX
+            //readyState 是xhr对象的属性，表示状态 0 1 2 3 4
+            //change
+            xhr.onreadystatechange = function(){
+                //4 
+                if(xhr.readyState ==4){
+
+                    //判断响应状态码 200 404 403 401 500
+                    if(xhr.status>=200 && xhr.status <300 ){
+                        //处理结果 行 头 空行 体
+                        //1. 响应行
+                        console.log(xhr.status); //状态码
+                        console.log(xhr.statusText);//状态字符串
+                        console.log(xhr.getAllResponseHeaders()); //所有响应头
+                        console.log(xhr.response)
+
+                        //
+                        result.innerHTML = xhr.response
+                    }else{
+
+                    }
+                }
+            }
+        }
+
+        
+    </script>
+</body>
+</html>

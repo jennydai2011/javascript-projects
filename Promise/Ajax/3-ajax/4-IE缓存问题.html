@@ -28,7 +28,7 @@
             const xhr = new XMLHttpRequest();
 
             //2. 初始化，设置请求方法
-            xhr.open('GET', 'http://127.0.0.1:8000/ie')
+            xhr.open('GET', 'http://127.0.0.1:8000/ie?t='+new Date()) //clear IE cache
 
             //3. 发送
             xhr.send();
