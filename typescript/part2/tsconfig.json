@@ -1,0 +1,24 @@
+{
+/*
+    tsconfig.json 是ts编译器的配置文件，
+    "include", "exclude"
+    ** 表示任意目录
+    * 表示任意文件
+*/
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./src/hello/**/*"
+    ],
+    "files": [
+        "file1.ts"
+    ],
+    //最重要的配置项
+    "compilerOptions": {
+        "target": "ES6",
+        "lib": ["ES6", "DOM"],
+        "outDir": "dist",
+        "outFile": "dist/target.js"
+    }
+}
