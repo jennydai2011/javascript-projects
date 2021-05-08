@@ -1,0 +1,14 @@
+{
+    "name": "chapter02",
+    "version": "1.0.0",
+    "description": "QuickStart package.json from the documentation, supplemented with testing support",
+    "scripts": {},
+    "keywords": [],
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {
+      "tslint": "^4.0.2",
+      "typescript": "~2.1.5"
+    },
+    "repository": {}
+  }

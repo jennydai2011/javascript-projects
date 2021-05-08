@@ -1,0 +1,13 @@
+{
+    
+        "include": [
+            "./src/**/*"
+        ],
+       
+        "compilerOptions": {
+            "target": "es6",
+            "lib": ["ES6", "DOM"],
+            "outDir": "./dist",
+            "outFile": "dist/target.js"
+        }
+    }
