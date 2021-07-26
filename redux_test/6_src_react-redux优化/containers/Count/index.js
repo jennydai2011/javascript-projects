@@ -7,7 +7,7 @@ import {
     createIncrementAction,
     createDecrementAction, 
     createIncrementAsyncAction
-} from '../../redux/actions/count_action'
+} from '../../redux/count_action'
 
 
 import {connect} from 'react-redux'
